@@ -1,0 +1,30 @@
+package com.kelvin.service;
+
+import com.kelvin.dao.UserRepository;
+import com.kelvin.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.DateFormat;
+import java.util.Date;
+
+/**
+ * Created by Lenovo on 2017/6/26.
+ */
+@Service
+public class UserServiceImpl {
+    @Autowired
+    UserRepository userRepository;
+
+    public void findUser(){
+        userRepository.findByUserName("");
+    }
+
+    public void saveUser() {
+        Date date = new Date();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
+        String formattedDate = dateFormat.format(date);
+        userRepository.save(new User("b", "b", "b", "b",formattedDate));
+        userRepository.save(new User("aa1", "a", "aa1", "aa123456",formattedDate));
+    }
+}
