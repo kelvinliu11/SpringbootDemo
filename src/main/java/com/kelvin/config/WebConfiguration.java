@@ -48,23 +48,6 @@ public class WebConfiguration {
         }
     }
 
-    /*@Bean(name = "transactionInterceptor")
-    public TransactionInterceptor transactionInterceptor(PlatformTransactionManager platformTransactionManager) {
-        TransactionInterceptor transactionInterceptor = new TransactionInterceptor();
-        Properties transactionAttributes = new Properties();
-        transactionAttributes.setProperty("save*", "PROPAGATION_NEW,-Throwable");
-        transactionInterceptor.setTransactionAttributes(transactionAttributes);
-        return transactionInterceptor;
-    }
-    @Bean
-    public BeanNameAutoProxyCreator transactionAutoProxy(){
-        BeanNameAutoProxyCreator transactionAutoProxy = new BeanNameAutoProxyCreator();
-        transactionAutoProxy.setProxyTargetClass(true);
-        transactionAutoProxy.setBeanNames("*ServiceImpl");
-        transactionAutoProxy.setInterceptorNames("transactionInterceptor");
-        return transactionAutoProxy;
-    }*/
-
     @Bean(name = "tInterceptor")
     public TInterceptor tInterceptor(){
         return new TInterceptor();

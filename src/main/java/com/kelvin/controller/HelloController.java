@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * 只需要类添加 @RestController 即可，默认类中的方法都会以json的格式返回
  */
@@ -45,5 +47,6 @@ public class HelloController {
     String index(@PathVariable String myName) {
         return "Hello "+myName+"!!!";
     }
+
 
 }
