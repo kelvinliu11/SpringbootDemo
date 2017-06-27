@@ -1,6 +1,5 @@
 package com.kelvin.controller;
 
-import com.kelvin.service.UserMapperServiceImpl;
 import com.kelvin.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +21,6 @@ public class HelloController {
 
     @Autowired
     UserServiceImpl userService;
-    @Autowired
-    UserMapperServiceImpl userMapperService;
 
     /**
      * 屬性注入：在servlet容器也能使用
@@ -40,8 +37,7 @@ public class HelloController {
     String home() {
         logger.info("accessing root......");
 //        userService.findUser();
-//        userService.saveUser();
-        userMapperService.saveUser();
+        userService.saveUser();
         return "Hello World=====" + serverPort;
     }
 

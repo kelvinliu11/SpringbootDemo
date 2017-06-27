@@ -10,8 +10,9 @@ import org.springframework.context.annotation.Configuration;
 /**
  * MapperScan是SpringBoot Mybatis基于注解方式访问mysql的注解
  * http://www.cnblogs.com/ityouknow/p/6037431.html
+ * #不推荐同时使用mybatis注解和jpa方式访问数据库
  */
-@MapperScan("com.kelvin.mapper")
+//@MapperScan("com.kelvin.mapper")
 //@SpringBootApplication
 @Configuration
 @EnableAutoConfiguration
