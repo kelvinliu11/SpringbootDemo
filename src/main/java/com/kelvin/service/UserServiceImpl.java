@@ -25,8 +25,9 @@ public class UserServiceImpl {
         Date date = new Date();
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
         String formattedDate = dateFormat.format(date);
-        userRepository.save(new User("b", "b", "b", "b",formattedDate));
-        userRepository.save(new User("aa1", "a", "aa1", "aa123456",formattedDate));
+        User record = userRepository.save(new User("b", "b", "b", "b",formattedDate));
+        System.out.println("已经录入user数据\t" + record.toString());
+//        userRepository.save(new User("aa1", "a", "aa1", "aa123456",formattedDate));
     }
 
     public void usingJpaWithSql() {

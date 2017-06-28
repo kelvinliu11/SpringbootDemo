@@ -35,11 +35,15 @@ public class HelloController {
         return "Hello World222";
     }
 
+    /**
+     * 使用jpa方式录入的数据，会自动返回主键id
+     * @return
+     */
     @RequestMapping("/")
     String home() {
         logger.info("accessing root......");
 //        userService.findUser();
-//        userService.saveUser();
+        userService.saveUser();
         return "Hello World=====" + serverPort;
     }
 
