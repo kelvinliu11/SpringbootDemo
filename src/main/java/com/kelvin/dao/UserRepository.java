@@ -40,7 +40,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     String findUserSql = "select user from User user";
     @Query(findUserSql + " where  user.userName = ?1 or user.nickName = ?2")
-    List<User> findByUsernameNickname(String userName, String nickName);
+    List<User> findByUserNameNickName(String userName, String nickName);
 
 
 }
