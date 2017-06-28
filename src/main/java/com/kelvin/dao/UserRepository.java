@@ -3,6 +3,7 @@ package com.kelvin.dao;
 import com.kelvin.domain.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -32,5 +33,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     //根据邮箱进行分页查询
     List<User> findByEmail(String email, Pageable pageable);//根据用户名和邮箱进行查询
+
+
+    /**
+     * 下面是jpa使用原生sql的样例
+     */
+    String findUserSql = "select user from User user";
+    @Query(findUserSql + " where  user.userName = ?1 or user.nickName = ?2")
+    List<User> findByUsernameNickname(String userName, String nickName);
+
 
 }

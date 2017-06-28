@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Lenovo on 2017/6/26.
@@ -26,5 +27,12 @@ public class UserServiceImpl {
         String formattedDate = dateFormat.format(date);
         userRepository.save(new User("b", "b", "b", "b",formattedDate));
         userRepository.save(new User("aa1", "a", "aa1", "aa123456",formattedDate));
+    }
+
+    public void usingJpaWithSql() {
+        List<User> users = userRepository.findByUserNameNickName("b", "aa123456");
+        for (User tmp : users) {
+            System.out.println(tmp.toString());
+        }
     }
 }

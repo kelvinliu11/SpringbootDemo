@@ -8,6 +8,9 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import java.io.Serializable;
 import java.util.Properties;
 
+/**
+ * 使用非注解的方式，实现事务控制
+ */
 public class TInterceptor extends TransactionAspectSupport implements MethodInterceptor, Serializable {
     
     public TInterceptor() {

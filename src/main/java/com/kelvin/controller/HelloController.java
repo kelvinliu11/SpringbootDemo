@@ -39,7 +39,7 @@ public class HelloController {
     String home() {
         logger.info("accessing root......");
 //        userService.findUser();
-        userService.saveUser();
+//        userService.saveUser();
         return "Hello World=====" + serverPort;
     }
 
@@ -48,5 +48,12 @@ public class HelloController {
         return "Hello "+myName+"!!!";
     }
 
-
+    /**
+     * 这个controller最终调用的是jpa的原生sql方式：方法名已经不是按照jpa方式命名！执行的查询或更新，以方法注解为准
+     * @Query注解同样可以用于更新
+     */
+    @RequestMapping("/jpa/sql")
+    public void usingJpaWithSql() {
+        userService.usingJpaWithSql();
+    }
 }
