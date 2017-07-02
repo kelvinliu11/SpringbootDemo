@@ -12,15 +12,13 @@ import java.util.Map;
  * @Date: 2017/6/27.23:08
  */
 @Controller
-public class JspSampleController {
+public class IndexController {
     // 从 application.properties 中读取配置，如取不到默认值为Hello
     @Value("${application.hello:Hello}")
     private String hello;
-    @RequestMapping("/helloJsp")
+    @RequestMapping("/")
     public String helloJsp(Map<String, Object> map) {
-        System.out.println("HelloController.helloJsp().hello=" + hello);
-        map.put("hello", hello);
-        return "helloJsp";
-
+        return "index";
     }
+
 }
