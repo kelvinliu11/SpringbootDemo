@@ -16,16 +16,16 @@ import java.util.Properties;
 @Configuration
 public class WebConfiguration {
 
-    @Bean
+    /*@Bean
     public FilterRegistrationBean testRemoteIpFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new MyFilter());
-        registration.addUrlPatterns("/*");
+        registration.addUrlPatterns("*//*");
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("MyFilter");
         registration.setOrder(1);
         return registration;
-    }
+    }*/
 
     public class MyFilter implements Filter {
         @Override

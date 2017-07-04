@@ -1,7 +1,12 @@
 package com.kelvin.domain;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 
@@ -12,6 +17,10 @@ import java.io.Serializable;
  **/
 @SuppressWarnings("serial")
 @Entity
+@Table(name = "pol_prd_supplier")
+@DynamicInsert
+@DynamicUpdate(value = true)
+@SelectBeforeUpdate
 public class PolPrdSupplier implements Serializable {
 
 	/**物理主键**/
@@ -24,6 +33,9 @@ public class PolPrdSupplier implements Serializable {
 
 	/**供应商名称**/
 	private String supplierName;
+
+	/**0未知1供应商2销售平台**/
+	private Integer supplierType;
 
 	/**合同url**/
 	private String contractUrl;
@@ -216,4 +228,11 @@ public class PolPrdSupplier implements Serializable {
 		return this.rcvBankNameDetailed;
 	}
 
+	public Integer getSupplierType() {
+		return supplierType;
+	}
+
+	public void setSupplierType(Integer supplierType) {
+		this.supplierType = supplierType;
+	}
 }

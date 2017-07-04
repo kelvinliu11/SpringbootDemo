@@ -1,7 +1,9 @@
 package com.kelvin.dao;
 
 import com.kelvin.domain.PolPrdSupplier;
+import com.kelvin.jpa.repository.ExpandJpaRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * JPA方式访问数据库数据
@@ -10,7 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * 比如findByUserName 会自动生产一个以 userName 为参数的查询方法，
  * 比如 findAlll 自动会查询表里面的所有数据，比如自动分页等等。。
  */
-public interface PrdSupplierRepository extends JpaRepository<PolPrdSupplier, Long> {
+@Repository
+public interface PrdSupplierRepository extends ExpandJpaRepository<PolPrdSupplier, Integer> {
 
     /*User findByUserNameOrEmail(String username, String email);
     //jpa 方法名就是查询语句,只要规法写方法名一切就都可以完成(当然.有时候会造成方法名又臭又长)

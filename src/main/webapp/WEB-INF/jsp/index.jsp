@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>资管系统</title>
+  <title>众邦金控资产管理系统</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="<%=request.getContextPath()%>/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -55,7 +55,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">资管系统</a>
+      <a class="navbar-brand" href="index.html">众邦金控资产管理系统</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -87,20 +87,24 @@
             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
           </li>
           <li>
-            <a href="#"><i class="fa fa-wrench fa-fw"></i>供应商管理<span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+            <a href="#" onclick="viewActionPage('supplier/showSupplier', '合作商管理');">
+              <i class="fa fa-wrench fa-fw"></i>合作商管理
+            </a>
+            <%--<ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
               <li>
                 <a href="#" onclick="viewActionPage('supplier/addSupplier', '新增供应商');">新增供应商</a>
               </li>
-            </ul>
+            </ul>--%>
           </li>
           <li>
-            <a href="#"><i class="fa fa-wrench fa-fw"></i>资产包管理<span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+            <a href="#" onclick="viewActionPage('asset/addAsset', '新增资产包');">
+              <i class="fa fa-wrench fa-fw"></i>资产包管理</span>
+            </a>
+            <%--<ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
               <li>
                 <a href="#" onclick="viewActionPage('asset/addAsset', '新增资产包');">新增资产包</a>
               </li>
-            </ul>
+            </ul>--%>
             <!-- /.nav-second-level -->
           </li>
         </ul>
@@ -172,7 +176,7 @@
     <!-- /.row -->
   </div>
   <!-- /#page-wrapper -->
-
+  </div>
 </div>
 <!-- /#wrapper -->
 
@@ -191,7 +195,6 @@
     function viewActionPage(elementName, tabTitle) {
         var fullPath = elementName;
         elementName = getSuffix(elementName);
-        alert(elementName);
         // 移除原有标签高亮以及标签内容
         $("li").removeClass("active"); // 移除导航栏所有li标签的active属性，使其不高亮
         $(".tab-pane").removeClass("in active");// 让标签下展示的页面的内容隐藏
@@ -206,9 +209,9 @@
             $("#myTab").append(
                 "<li id=\"" + elementName + "Li\" class=\"active\"" +
                 "style=\"display: block;\">" +
-                "<a href=\"" + elementDiv + "\" data-toggle=\"tab\" onclick=\"navLiClick('" + elementName + "\');\"  ondblclick=\"refreshCurrent('" + elementName + "\', '" + elementAction + "\');\"> " + tabTitle + "</a>" +
+                "<a href=\"" + elementDiv + "\" data-toggle=\"tab\" onclick=\"navLiClick('" + elementName + "\');\"  ondblclick=\"refreshCurrent('" + elementName + "\', '" + elementAction + "\', 'index=true');\"> " + tabTitle + "</a>" +
                 "</li>");
-            $("#myTabContent").append("<div class=\"tab-pane fade in active\" id=\"" + elementName + "Div\" style=\"display: block;\"><section class=\"content\"><iframe id=\"" + elementName + "Iframe\" src=\"" + elementAction + "\" style=\"width: 105%; height:500px; margin:30px 0 0 10px;\"></iframe></section></div>");
+            $("#myTabContent").append("<div class=\"tab-pane fade in active\" id=\"" + elementName + "Div\" style=\"display: block;\"><section class=\"content\"><iframe id=\"" + elementName + "Iframe\" src=\"" + elementAction + "\" style=\"width: 105%; height:500px; margin:50px 0 0 10px;\"></iframe></section></div>");
         }
         else {
             $(elementLi).addClass("active");// 标签高亮显示
@@ -222,26 +225,22 @@
         $(".tab-pane").not(elementDiv).css("display", "none");
         $(elementDiv).css("display", "block");
     }
-    function refreshCurrent(elementName, elementAction) {
+    function refreshCurrent(elementName, elementAction, data) {
       var iframeId = "#" +elementName + "Iframe";
-      $(iframeId).attr("src", elementAction);
+      $(iframeId).attr("src", elementAction + "?" + data);
     }
 </script>
 
 <!-- jQuery -->
 <script src="<%=request.getContextPath()%>/static/vendor/jquery/jquery.min.js"></script>
-
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=request.getContextPath()%>/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<%=request.getContextPath()%>/static/vendor/metisMenu/metisMenu.min.js"></script>
-
 <!-- Morris Charts JavaScript -->
 <script src="<%=request.getContextPath()%>/static/vendor/raphael/raphael.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/vendor/morrisjs/morris.min.js"></script>
 <script src="<%=request.getContextPath()%>/static/data/morris-data.js"></script>
-
 <!-- Custom Theme JavaScript -->
 <script src="<%=request.getContextPath()%>/static/dist/js/sb-admin-2.js"></script>
 
