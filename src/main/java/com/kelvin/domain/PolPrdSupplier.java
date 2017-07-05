@@ -20,7 +20,6 @@ import java.io.Serializable;
 @Table(name = "pol_prd_supplier")
 @DynamicInsert
 @DynamicUpdate(value = true)
-@SelectBeforeUpdate
 public class PolPrdSupplier implements Serializable {
 
 	/**物理主键**/

@@ -47,7 +47,7 @@
 <div id="wrapper">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; ">
+  <%--<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; ">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -77,7 +77,7 @@
         <!-- /.dropdown-user -->
       </li>
       <!-- /.dropdown -->
-    </ul>
+    </ul>--%>
     <!-- /.navbar-top-links -->
 
     <div class="navbar-default sidebar" role="navigation">
@@ -87,7 +87,7 @@
             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
           </li>
           <li>
-            <a href="#" onclick="viewActionPage('supplier/showSupplier', '合作商管理');">
+            <a href="#" onclick="viewActionPage('supplier/showSupplier', '合作商管理', '');">
               <i class="fa fa-wrench fa-fw"></i>合作商管理
             </a>
             <%--<ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
@@ -97,7 +97,7 @@
             </ul>--%>
           </li>
           <li>
-            <a href="#" onclick="viewActionPage('asset/addAsset', '新增资产包');">
+            <a href="#" onclick="viewActionPage('asset/showAsset', '资产包管理', '');">
               <i class="fa fa-wrench fa-fw"></i>资产包管理</span>
             </a>
             <%--<ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
@@ -192,7 +192,7 @@
         }
     }
 
-    function viewActionPage(elementName, tabTitle) {
+    function viewActionPage(elementName, tabTitle, data) {
         var fullPath = elementName;
         elementName = getSuffix(elementName);
         // 移除原有标签高亮以及标签内容
@@ -203,13 +203,13 @@
         // 展示新标签及其内容，并高亮显示
         var elementLi = "#" + elementName + "Li";
         var elementDiv = "#" + elementName + "Div";
-        var elementAction = "<%=request.getContextPath()%>" + fullPath;
+        var elementAction = "<%=request.getContextPath()%>" + fullPath + data;
 //        var elementAction = "http://csdn.net";
         if ($(elementLi).length == 0) {
             $("#myTab").append(
                 "<li id=\"" + elementName + "Li\" class=\"active\"" +
                 "style=\"display: block;\">" +
-                "<a href=\"" + elementDiv + "\" data-toggle=\"tab\" onclick=\"navLiClick('" + elementName + "\');\"  ondblclick=\"refreshCurrent('" + elementName + "\', '" + elementAction + "\', 'index=true');\"> " + tabTitle + "</a>" +
+                "<a href=\"" + elementDiv + "\" data-toggle=\"tab\" onclick=\"navLiClick('" + elementName + "\');\"  ondblclick=\"refreshCurrent('" + elementName + "\', '" + elementAction + "\', '');\"> " + tabTitle + "</a>" +
                 "</li>");
             $("#myTabContent").append("<div class=\"tab-pane fade in active\" id=\"" + elementName + "Div\" style=\"display: block;\"><section class=\"content\"><iframe id=\"" + elementName + "Iframe\" src=\"" + elementAction + "\" style=\"width: 105%; height:500px; margin:50px 0 0 10px;\"></iframe></section></div>");
         }
@@ -227,7 +227,7 @@
     }
     function refreshCurrent(elementName, elementAction, data) {
       var iframeId = "#" +elementName + "Iframe";
-      $(iframeId).attr("src", elementAction + "?" + data);
+      $(iframeId).attr("src", elementAction + data);
     }
 </script>
 
