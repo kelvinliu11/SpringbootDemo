@@ -1,6 +1,8 @@
 package com.kelvin.controller;
 
+import com.kelvin.domain.AssetAssign;
 import com.kelvin.domain.PolAsset;
+import com.kelvin.service.AssetAssignService;
 import com.kelvin.service.AssetService;
 import com.kelvin.vo.ResponseVo;
 import com.kelvin.vo.asset.AssetQueryVo;
@@ -26,6 +28,8 @@ public class AssetController {
 
     @Autowired
     AssetService assetService;
+    @Autowired
+    AssetAssignService assignService;
 
     @RequestMapping("/asset/showAsset")
     public ModelAndView showAssets(AssetQueryVo assetVo) {
@@ -53,7 +57,6 @@ public class AssetController {
     @RequestMapping("/asset/add/do")
     @ResponseBody
     public ResponseVo doAddAsset(PolAsset asset) {
-        System.out.println(asset.toString());
         ResponseVo responseVo = new ResponseVo();
         try {
             assetService.addAsset(asset);
@@ -61,6 +64,7 @@ public class AssetController {
             responseVo.setMsg("success");
             responseVo.setData("添加成功");
         } catch (Exception e) {
+            logger.error("", e);
             responseVo.setSuccess(false);
             responseVo.setMsg("fail");
         }
@@ -96,12 +100,70 @@ public class AssetController {
         return responseVo;
     }
 
+    /**
+     * 展示资产分配index页面，用户展示分配及后续操作
+     * @param asset
+     * @return
+     */
     @RequestMapping("/asset/assignAsset")
     public ModelAndView assignAsset(PolAsset asset) {
+        // 获取资产包信息用于在头部展示
         asset = assetService.findById(asset.getId());
+        // 获取资产包的分配信息用于展示明细
+        List<AssetAssign> assetAssigns = assignService.findByAssetId(asset.getId());
         ModelAndView mv = new ModelAndView("asset/AssignAsset");
         mv.addObject("asset", asset);
+        mv.addObject("assetAssigns", assetAssigns);
         return mv;
+    }
+
+    @RequestMapping("/asset/addAssetAssign")
+    public ModelAndView addAssetAssign(Integer assetId) {
+        ModelAndView mv = new ModelAndView("asset/addAssetAssign");
+        mv.addObject("assetId", assetId);
+        return mv;
+    }
+
+    @RequestMapping("/asset/addAssetAssign/do")
+    @ResponseBody
+    public ResponseVo doAddAssetAssgin(AssetAssign assign) {
+        ResponseVo responseVo = new ResponseVo();
+        try {
+            assignService.save(assign);
+            responseVo.setSuccess(true);
+            responseVo.setMsg("success");
+            responseVo.setData("添加成功");
+        } catch (Exception e) {
+            logger.error("", e);
+            responseVo.setSuccess(false);
+            responseVo.setMsg("fail");
+        }
+        return responseVo;
+    }
+
+    @RequestMapping("/asset/modifyAssetAssign")
+    public ModelAndView modifyAssetAssign(Integer id) {
+        AssetAssign assetAssign = assignService.findByAssignId(id);
+        ModelAndView mv = new ModelAndView("asset/modifyAssetAssign");
+        mv.addObject("assetAssign", assetAssign);
+        return mv;
+    }
+
+    @RequestMapping("/asset/modifyAssetAssign/do")
+    @ResponseBody
+    public ResponseVo doModifyAssetAssgin(AssetAssign assign) {
+        ResponseVo responseVo = new ResponseVo();
+        try {
+            assignService.modifyAssetAssign(assign);
+            responseVo.setSuccess(true);
+            responseVo.setMsg("success");
+            responseVo.setData("更新成功");
+        } catch (Exception e) {
+            logger.error("", e);
+            responseVo.setSuccess(false);
+            responseVo.setMsg("fail");
+        }
+        return responseVo;
     }
 
 

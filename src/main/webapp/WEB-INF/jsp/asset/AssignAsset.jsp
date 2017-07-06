@@ -90,37 +90,68 @@
   </table>
   <DIV style="BORDER-TOP: #000000 1px dashed; OVERFLOW: hidden; HEIGHT: 1px"></DIV>
 
-  <!-- 添加资产包Modal -->
-  <div class="modal fade" id="addAssetModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
+  <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-asset-assign">
+    <thead>
+    <tr>
+      <th></th>
+      <th>销售平台名称</th>
+      <th>分配日期</th>
+      <th>分配资产额度</th>
+      <th>年利率</th>
+      <th>起息日</th>
+      <th>结息日</th>
+      <th>利息金额</th>
+      <th>最后修改时间</th>
+      <th>最后修改人</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${assetAssigns}" var="assetAssign">
+      <tr class="odd gradeX" onclick="trOnclick(${assetAssign.id})" ondblclick="trOnDblclick(${assetAssign.id})">
+        <td><input type="radio" id="${assetAssign.id}" name="optionsRadios" value="${assetAssign.id}" style="margin:0 35%;"></td>
+        <td>${assetAssign.supplierName}</td>
+        <td>${assetAssign.assignDate}</td>
+        <td>${assetAssign.assignAmount}</td>
+        <td class="center">${assetAssign.yearRate}</td>
+        <td class="center">${assetAssign.profitCaculateDate}</td>
+        <td class="center">${assetAssign.profitContributeDate}</td>
+        <td class="center">${assetAssign.interest}</td>
+        <td class="center">${assetAssign.updateTime}</td>
+        <td class="center">${assetAssign.updateUser}</td>
+      </tr>
+    </c:forEach>
+    </tbody>
+  </table>
+
+  <!-- 添加分配Modal -->
+  <div class="modal fade" id="addAssetAssignModal" tabindex="-1" role="dialog" aria-labelledby="addAssetAssignModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="width: 900px; height: 480px; margin: 0 -20%;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="addAssetModalLabel">添加资产包</h4>
+          <h4 class="modal-title" id="addAssetAssignModalLabel">添加资产包分配</h4>
         </div>
         <div class="modal-body" style="width: 100%;">
-          <iframe src="<%=request.getContextPath()%>/asset/addAsset" style="width: 100%;height: 400px;"></iframe>
+          <iframe id="addAssetAssignModalIframe" style="width: 100%;height: 400px;"></iframe>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 修改资产包Modal -->
-  <div class="modal fade" id="modifyAssetModal" tabindex="-1" role="dialog" aria-labelledby="modifyAssetModalLabel">
+  <!-- 修改分配Modal -->
+  <div class="modal fade" id="modifyAssetAssignModal" tabindex="-1" role="dialog" aria-labelledby="modifyAssetAssignModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content" style="width: 900px; height: 480px; margin: 0 -20%;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="modifyAssetModalLabel">修改资产包</h4>
+          <h4 class="modal-title" id="modifyAssetAssignModalLabel">修改资产包</h4>
         </div>
         <div class="modal-body" style="width: 100%;">
-          <iframe id="modifyAssetModalIframe" style="width: 100%;height: 400px;"></iframe>
+          <iframe id="modifyAssetAssignModalIframe" style="width: 100%;height: 400px;"></iframe>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
@@ -142,25 +173,42 @@
 
 <script>
     $(document).ready(function() {
-
+        $('#dataTables-asset-assign').DataTable({
+            responsive: true
+        });
+        $("#dataTables-asset-assign_filter").html("");
+        $("th").removeClass("sorting");
+        $("#dataTables-asset-assign_length").prepend("<span style='font-size:18px;'>资产包分配信息：</span>");
+        $("#dataTables-asset-assign_length").append("" +
+            "<button type=\"button\" id=\"addAssetAssignModalButton\" class=\"btn btn-info\" style=\"margin:0 10px;\"  data-toggle=\"modal\" data-target=\"#addAssetAssignModal\" onclick=\"addAssetAssignModal()\">新建</button>" +
+            "<button type=\"button\" id=\"modifyAssetAssignModalButton\" class=\"btn btn-warning\" style=\"margin:0 10px;\" onclick=\"modifyAssetAssignModal()\">修改</button>" +
+            "<button type=\"button\" class=\"btn btn-primary\" style=\"margin:0 10px;\" onclick='showAssetAssignHistory();'>查看</button>");
     });
 
     // 重置窗体modal的src
-    function modifyAssetModal() {
-        var assetId = $("input[name='optionsRadios']:checked").val();
-        if (typeof(assetId)=="undefined") {
+    function addAssetAssignModal() {
+        var assetId = ${asset.id};
+        $("#addAssetModal").modal('show');
+        $("#addAssetAssignModalIframe").attr("src", "<%=request.getContextPath()%>/asset/addAssetAssign?id="+assetId);
+    }
+
+    // 重置窗体modal的src
+    function modifyAssetAssignModal() {
+        var assetAssignId = $("input[name='optionsRadios']:checked").val();
+        if (typeof(assetAssignId)=="undefined") {
             alert("请先选中要修改的行！");
+            return;
         }
         else {
-            $("#modifyAssetModal").modal('show');
-            $("#modifyAssetModalIframe").attr("src", "<%=request.getContextPath()%>/asset/modifyAsset?id="+assetId);
+            $("#modifyAssetAssignModal").modal('show');
+            $("#modifyAssetAssignModalIframe").attr("src", "<%=request.getContextPath()%>/asset/modifyAssetAssign?id="+assetAssignId);
         }
 
     }
 
     // 每行记录的单击和双击事件
     var clickTimer = null;
-    function trOnclick(assetId) {
+    function trOnclick(assetAssignId) {
         if(clickTimer) {
             window.clearTimeout(clickTimer);
             clickTimer = null;
@@ -168,13 +216,13 @@
         clickTimer = window.setTimeout(function(){
             // radio的选中效果
             $("input[name='optionsRadios']").removeAttr("checked");
-            $("#" + assetId).attr("checked", "checked");
+            $("#" + assetAssignId).attr("checked", "checked");
         }, 300);
     }
     function trOnDblclick(assetId) {
         $("input[name='optionsRadios']").removeAttr("checked");
         $("#" + assetId).attr("checked", "checked");
-        $("#modifyAssetModalButton").trigger("click");
+        $("#modifyAssetAssignModalButton").trigger("click");
     }
 
 </script>

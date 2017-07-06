@@ -3,6 +3,8 @@ package com.kelvin.controller;
 import com.kelvin.domain.PolPrdSupplier;
 import com.kelvin.service.PrdSupplierService;
 import com.kelvin.vo.ResponseVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.util.Map;
  */
 @Controller
 public class SupplierController {
+
+    private static final Logger logger = LoggerFactory.getLogger(SupplierController.class);
 
     @Autowired
     PrdSupplierService prdSupplierService;
@@ -65,6 +69,7 @@ public class SupplierController {
             responseVo.setMsg("success");
             responseVo.setData("添加成功");
         } catch (Exception e) {
+            logger.error("", e);
             responseVo.setSuccess(false);
             responseVo.setMsg("fail");
         }
@@ -91,8 +96,9 @@ public class SupplierController {
             prdSupplierService.modifySupplier(supplier);
             responseVo.setSuccess(true);
             responseVo.setMsg("success");
-            responseVo.setData("添加成功");
+            responseVo.setData("更新成功");
         } catch (Exception e) {
+            logger.error("", e);
             responseVo.setSuccess(false);
             responseVo.setMsg("fail");
         }

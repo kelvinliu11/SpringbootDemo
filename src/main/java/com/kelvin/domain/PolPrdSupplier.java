@@ -17,7 +17,7 @@ import java.io.Serializable;
  **/
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "pol_prd_supplier")
+@Table(name = "supplier")
 @DynamicInsert
 @DynamicUpdate(value = true)
 public class PolPrdSupplier implements Serializable {

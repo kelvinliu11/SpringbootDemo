@@ -42,7 +42,7 @@
   </style>
 </head>
 
-<body>
+<body style="background: white;">
 
 <div id="wrapper">
 
@@ -191,10 +191,17 @@
             return pathString;
         }
     }
+    // 如果data：?id=1&tabName=assetAssign，返回id1tabNameassetAssign
+    function getSpecificTabPrefix(data) {
+        data = data.replace("?", "");
+        data = data.replace(new RegExp("=","gm"),"");
+        data = data.replace(new RegExp("&","gm"),"");
+        return data;
+    }
 
     function viewActionPage(elementName, tabTitle, data) {
         var fullPath = elementName;
-        elementName = getSuffix(elementName);
+        elementName = getSuffix(elementName) + getSpecificTabPrefix(data);
         // 移除原有标签高亮以及标签内容
         $("li").removeClass("active"); // 移除导航栏所有li标签的active属性，使其不高亮
         $(".tab-pane").removeClass("in active");// 让标签下展示的页面的内容隐藏
@@ -204,14 +211,13 @@
         var elementLi = "#" + elementName + "Li";
         var elementDiv = "#" + elementName + "Div";
         var elementAction = "<%=request.getContextPath()%>" + fullPath + data;
-//        var elementAction = "http://csdn.net";
         if ($(elementLi).length == 0) {
             $("#myTab").append(
                 "<li id=\"" + elementName + "Li\" class=\"active\"" +
                 "style=\"display: block;\">" +
                 "<a href=\"" + elementDiv + "\" data-toggle=\"tab\" onclick=\"navLiClick('" + elementName + "\');\"  ondblclick=\"refreshCurrent('" + elementName + "\', '" + elementAction + "\', '');\"> " + tabTitle + "</a>" +
                 "</li>");
-            $("#myTabContent").append("<div class=\"tab-pane fade in active\" id=\"" + elementName + "Div\" style=\"display: block;\"><section class=\"content\"><iframe id=\"" + elementName + "Iframe\" src=\"" + elementAction + "\" style=\"width: 105%; height:500px; margin:50px 0 0 10px;\"></iframe></section></div>");
+            $("#myTabContent").append("<div class=\"tab-pane fade in active\" id=\"" + elementName + "Div\" style=\"display: block;\"><section class=\"content\"><iframe id=\"" + elementName + "Iframe\" src=\"" + elementAction + "\" style=\"width: 105%; height:850px; margin:50px 0 0 10px;\"></iframe></section></div>");
         }
         else {
             $(elementLi).addClass("active");// 标签高亮显示

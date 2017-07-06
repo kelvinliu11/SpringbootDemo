@@ -1,0 +1,18 @@
+package com.kelvin.dao;
+
+import com.kelvin.domain.AssetAssign;
+import com.kelvin.domain.PolAsset;
+import com.kelvin.jpa.repository.ExpandJpaRepository;
+import org.springframework.stereotype.Repository;
+
+/**
+ * JPA方式访问数据库数据
+ * dao只要继承JpaRepository类就可以，几乎可以不用写方法，
+ * 还有一个特别有尿性的功能非常赞，就是可以根据方法名来自动的生产SQL，
+ * 比如findByUserName 会自动生产一个以 userName 为参数的查询方法，
+ * 比如 findAlll 自动会查询表里面的所有数据，比如自动分页等等。。
+ */
+@Repository
+public interface AssetAssignRepository extends ExpandJpaRepository<AssetAssign, Integer> {
+
+}

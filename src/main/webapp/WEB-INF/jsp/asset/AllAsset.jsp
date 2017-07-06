@@ -48,117 +48,104 @@
     }
   </style>
 </head>
-<body>
+<body style="height: 500px;min-height: 500px;">
 
-<div id="wrapper">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="panel panel-default" style="width: 1700px;">
-        <div style="margin: 0 0 0 2%;">
-          <table id="asset_table" style="width: 1700px;">
-            <tbody>
-            <tr>
-              <td colspan="3">
-                获取日期
-                <input type="text" style="width: 120px;" value="" id="datetimepicker_purchase_date_start" data-date-format="yyyy-mm-dd hh:ii">
-                至
-                <input type="text" style="width: 120px;" value="" id="datetimepicker_purchase_date_end" data-date-format="yyyy-mm-dd hh:ii">
-                起息日期
-                <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_caculate_date_start" data-date-format="yyyy-mm-dd hh:ii">
-                至
-                <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_caculate_date_end" data-date-format="yyyy-mm-dd hh:ii">
-                结息日期
-                <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_contribute_date_start" data-date-format="yyyy-mm-dd hh:ii">
-                至
-                <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_contribute_date_end" data-date-format="yyyy-mm-dd hh:ii">
-              </td>
-              <%--<td><button type="button" class="btn btn-success" onclick="queryAsset()">查询</button></td>--%>
-            </tr>
-            <tr>
-              <td>资产包名称:<input class="form-control-my" id="assetName" value="${asset.assetName}">
-              供应商:
-                <select class="form-control-my" style="min-width: 100px; min-height: 36px;" id="supplierCode">
-                  <option value="1" <c:if test="${asset.supplierCode==1}">selected</c:if>>供应商</option>
-                  <option value="2" <c:if test="${asset.supplierCode==2}">selected</c:if>>销售平台</option>
-                </select>
-                资产包额度
-                <input class="form-control-my" id="sale_amount_start" value="">
-                至
-                <input class="form-control-my" id="sale_amount_end" value="">
-                年利率
-                <input class="form-control-my" id="predict_year_rate_start" value="">
-                至
-                <input class="form-control-my" id="predict_year_rate_end" value="">
-              </td>
-            </tr>
-            <tr>
-              <td>
-                可分配额度≤
-                <input class="form-control-my" id="balance_amount" value="${asset.balanceAmount}">
-                剩余天数≤
-                <input class="form-control-my" id="available_days" value="">
-                <button type="button" class="btn btn-success" style="margin:0 10px;" onclick="queryAsset()">查询</button>
-                <button type="button" id="addAssetModalButton" class="btn btn-info" style="margin:0 10px;"  data-toggle="modal" data-target="#addAssetModal">新建</button>
-                <button type="button" id="modifyAssetModalButton" class="btn btn-warning" style="margin:0 10px;" onclick="return modifyAssetModal()">修改</button>
-                <button type="button" class="btn btn-primary" style="margin:0 10px;" onclick='assignAsset();'>分配资产</button>
-                <button type="button" class="btn btn-primary" style="margin:0 10px;" onclick='showAssetHistory();'>查看</button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.panel-heading -->
-        <div class="panel-body">
-          <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-asset">
-            <thead>
-            <tr>
-              <th></th>
-              <th>资产包ID</th>
-              <th>资产包名称</th>
-              <th>供应商名称</th>
-              <th>获取日期</th>
-              <th>资产额度</th>
-              <th>年利率</th>
-              <th>起息日期</th>
-              <th>结息日期</th>
-              <th>利息金额</th>
-              <th>状态</th>
-              <th>剩余天数</th>
-              <th>可分配额度</th>
-              <th>最后修改时间</th>
-              <th>最后修改人</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${assets}" var="asset">
-            <tr class="odd gradeX" onclick="trOnclick(${asset.id})" ondblclick="trOnDblclick(${asset.id})">
-              <td><input type="radio" id="${asset.id}" name="optionsRadios" value="${asset.id}" style="margin:0 35%;"></td>
-              <td>${asset.id}</td>
-              <td>${asset.assetName}</td>
-              <td>${asset.supplierCode}</td>
-              <td class="center">${asset.purchaseDate}</td>
-              <td class="center">${asset.saleAmount}</td>
-              <td class="center">${asset.predictYearRate}</td>
-              <td class="center">${asset.profitCaculateDate}</td>
-              <td class="center">${asset.profitContributeDate}</td>
-              <td class="center">利息金额</td>
-              <td class="center">${asset.statusCode}</td>
-              <td class="center">剩余天数</td>
-              <td class="center">${asset.balanceAmount}</td>
-              <td class="center">${asset.updateTime}</td>
-              <td class="center">${asset.updateUid}</td>
-            </tr>
-            </c:forEach>
-            </tbody>
-          </table>
-          <!-- /.table-responsive -->
-        </div>
-        <!-- /.panel-body -->
-      </div>
-      <!-- /.panel -->
-    </div>
-    <!-- /.col-lg-12 -->
-  </div>
+<div id="wrapper" style="width: 1700px;">
+  <table id="asset_table" width="100%">
+    <tbody>
+    <tr>
+      <td colspan="3">
+        获取日期
+        <input type="text" style="width: 120px;" value="" id="datetimepicker_purchase_date_start" data-date-format="yyyy-mm-dd hh:ii">
+        至
+        <input type="text" style="width: 120px;" value="" id="datetimepicker_purchase_date_end" data-date-format="yyyy-mm-dd hh:ii">
+        起息日期
+        <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_caculate_date_start" data-date-format="yyyy-mm-dd hh:ii">
+        至
+        <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_caculate_date_end" data-date-format="yyyy-mm-dd hh:ii">
+        结息日期
+        <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_contribute_date_start" data-date-format="yyyy-mm-dd hh:ii">
+        至
+        <input type="text" style="width: 120px;" value="" id="datetimepicker_profit_contribute_date_end" data-date-format="yyyy-mm-dd hh:ii">
+      </td>
+      <%--<td><button type="button" class="btn btn-success" onclick="queryAsset()">查询</button></td>--%>
+    </tr>
+    <tr>
+      <td>资产包名称:<input class="form-control-my" id="assetName" value="${asset.assetName}">
+        供应商:
+        <select class="form-control-my" style="min-width: 100px; min-height: 36px;" id="supplierCode">
+          <option value="1" <c:if test="${asset.supplierCode==1}">selected</c:if>>供应商</option>
+          <option value="2" <c:if test="${asset.supplierCode==2}">selected</c:if>>销售平台</option>
+        </select>
+        资产包额度
+        <input class="form-control-my" id="sale_amount_start" value="">
+        至
+        <input class="form-control-my" id="sale_amount_end" value="">
+        年利率
+        <input class="form-control-my" id="predict_year_rate_start" value="">
+        至
+        <input class="form-control-my" id="predict_year_rate_end" value="">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        可分配额度≤
+        <input class="form-control-my" id="balance_amount" value="${asset.balanceAmount}">
+        剩余天数≤
+        <input class="form-control-my" id="available_days" value="">
+        <button type="button" class="btn btn-success" style="margin:0 10px;" onclick="queryAsset()">查询</button>
+        <button type="button" id="addAssetModalButton" class="btn btn-info" style="margin:0 10px;"  data-toggle="modal" data-target="#addAssetModal">新建</button>
+        <button type="button" id="modifyAssetModalButton" class="btn btn-warning" style="margin:0 10px;" onclick="return modifyAssetModal()">修改</button>
+        <button type="button" class="btn btn-primary" style="margin:0 10px;" onclick='assignAsset();'>分配资产</button>
+        <button type="button" class="btn btn-primary" style="margin:0 10px;" onclick='showAssetHistory();'>查看</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <DIV style="BORDER-TOP: #000000 1px dashed; OVERFLOW: hidden; HEIGHT: 1px"></DIV>
+  <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-asset">
+    <thead>
+    <tr>
+      <th></th>
+      <th>资产包ID</th>
+      <th>资产包名称</th>
+      <th>供应商名称</th>
+      <th>获取日期</th>
+      <th>资产额度</th>
+      <th>年利率</th>
+      <th>起息日期</th>
+      <th>结息日期</th>
+      <th>利息金额</th>
+      <th>状态</th>
+      <th>剩余天数</th>
+      <th>可分配额度</th>
+      <th>最后修改时间</th>
+      <th>最后修改人</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${assets}" var="asset">
+      <tr class="odd gradeX" onclick="trOnclick(${asset.id})" ondblclick="trOnDblclick(${asset.id})">
+        <td><input type="radio" id="${asset.id}" name="optionsRadios" value="${asset.id}" style="margin:0 35%;"></td>
+        <td>${asset.id}</td>
+        <td>${asset.assetName}</td>
+        <td>${asset.supplierCode}</td>
+        <td class="center">${asset.purchaseDate}</td>
+        <td class="center">${asset.saleAmount}</td>
+        <td class="center">${asset.predictYearRate}</td>
+        <td class="center">${asset.profitCaculateDate}</td>
+        <td class="center">${asset.profitContributeDate}</td>
+        <td class="center">利息金额</td>
+        <td class="center">${asset.statusCode}</td>
+        <td class="center">剩余天数</td>
+        <td class="center">${asset.balanceAmount}</td>
+        <td class="center">${asset.updateTime}</td>
+        <td class="center">${asset.updateUid}</td>
+      </tr>
+    </c:forEach>
+    </tbody>
+  </table>
+  <!-- /.table-responsive -->
   <!-- /.row -->
   <!-- 添加资产包Modal -->
   <div class="modal fade" id="addAssetModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
@@ -189,8 +176,6 @@
       </div>
     </div>
   </div>
-</div>
-<!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
@@ -263,19 +248,19 @@
         }
         else {
             // 调用父窗体的js方法，增加一个tab页展示修改记录
-            window.parent.viewActionPage('asset/assignAsset','分配资产', "?id="+assetId);
+            window.parent.viewActionPage('asset/assignAsset','分配资产', "?id="+assetId+"&tabName=assetAssign");
         }
     }
 
     function queryAsset() {
-        var data = "";
+        var data = "?1=1";
         var datetimepicker_purchase_date_start = $("#datetimepicker_purchase_date_start").val();
         if (datetimepicker_purchase_date_start != '') {
-            data += "&purchaseDateStart=" + datetimepicker_purchase_date_start+":00";
+            data += "&purchaseDateStart='" + datetimepicker_purchase_date_start+":00'";
         }
         var datetimepicker_purchase_date_end = $("#datetimepicker_purchase_date_end").val();
         if (datetimepicker_purchase_date_end != '') {
-            data += "&purchaseDateEnd=" + datetimepicker_purchase_date_end+":00";
+            data += "&purchaseDateEnd='" + datetimepicker_purchase_date_end+":00'";
         }
         var datetimepicker_profit_caculate_date_start = $("#datetimepicker_profit_caculate_date_start").val();
         if (datetimepicker_profit_caculate_date_start != '') {
@@ -297,10 +282,10 @@
         if (assetName != '') {
             data += "&assetName=" + assetName;
         }
-        /*var supplierType = $("#supplierType").val();
-        if (supplierType != '') {
-            data += "&supplierType=" + supplierType;
-        }*/
+      /*var supplierType = $("#supplierType").val();
+       if (supplierType != '') {
+       data += "&supplierType=" + supplierType;
+       }*/
         var sale_amount_start = $("#sale_amount_start").val();
         if (sale_amount_start != '') {
             data += "&saleAmountStart=" + sale_amount_start;

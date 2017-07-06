@@ -76,7 +76,7 @@
             <tr>
               <th></th>
               <th>合作商ID</th>
-              <th>合作方名称</th>
+              <th>合作商名称</th>
               <th>合作商类型</th>
               <th>最后修改时间</th>
               <th>最后修改人</th>
@@ -160,14 +160,21 @@
         });
         $("#dataTables-example_filter").html("" +
             "<button type=\"button\" id=\"addSupplierModalButton\" class=\"btn btn-info\" style=\"margin:0 10px;\"  data-toggle=\"modal\" data-target=\"#addSupplierModal\">新建</button>" +
-            "<button type=\"button\" id=\"modifySupplierModalButton\" class=\"btn btn-warning\" style=\"margin:0 10px;\"  data-toggle=\"modal\" data-target=\"#modifySupplierModal\" onclick=\"modifySupplierModal()\">修改</button>" +
+            "<button type=\"button\" id=\"modifySupplierModalButton\" class=\"btn btn-warning\" style=\"margin:0 10px;\" onclick=\"modifySupplierModal()\">修改</button>" +
             "<button type=\"button\" class=\"btn btn-primary\" style=\"margin:0 10px;\" onclick='showSupplierHistory();'>查看</button>");
     });
 
     // 重置窗体modal的src
     function modifySupplierModal() {
         var supplierId = $("input[name='optionsRadios']:checked").val();
-        $("#modifySupplierModalIframe").attr("src", "<%=request.getContextPath()%>/supplier/modifySupplier?id="+supplierId);
+        if (typeof(supplierId)=="undefined") {
+            alert("请先选中要修改的行！");
+            return;
+        }
+        else {
+            $("#modifySupplierModal").modal("show");
+            $("#modifySupplierModalIframe").attr("src", "<%=request.getContextPath()%>/supplier/modifySupplier?id="+supplierId);
+        }
     }
 
     // 每行记录的单击和双击事件
@@ -195,7 +202,7 @@
     }
 
     function querySupplier() {
-        var data = "";
+        var data = "?";
         var supplierName = $("#supplierName").val();
         if (supplierName != '') {
             data += "supplierName=" + supplierName;
